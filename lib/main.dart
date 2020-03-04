@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './transaction.dart';
 
@@ -40,7 +41,7 @@ class ExpenseAppHome extends StatelessWidget {
         title: Text('Expense Tracker'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -61,15 +62,35 @@ class ExpenseAppHome extends StatelessWidget {
                         horizontal: 15,
                       ),
                       padding: EdgeInsets.all(10),
-                      child: Text(transaction.amount.toString()),
+                      child: Text(
+                        '\$${transaction.amount}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.purple,
+                        ),
+                      ),
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2)),
+                          border: Border.all(color: Colors.purple, width: 2)),
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(transaction.title),
-                        Text(transaction.date.toString()),
+                        Text(
+                          transaction.title,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        Text(
+                          DateFormat.yMMMd()
+                              .format(transaction.date),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+                        ),
                       ],
                     )
                   ],

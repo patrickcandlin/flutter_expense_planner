@@ -41,7 +41,6 @@ class ExpenseAppHome extends StatelessWidget {
         title: Text('Expense Tracker'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -49,6 +48,14 @@ class ExpenseAppHome extends StatelessWidget {
             child: Card(
               child: Text('chart'),
               elevation: 5,
+            ),
+          ),
+          Card(
+            child: Column(
+              children: <Widget>[
+                TextField(),
+                TextField(),
+              ],
             ),
           ),
           Column(
@@ -79,13 +86,13 @@ class ExpenseAppHome extends StatelessWidget {
                         Text(
                           transaction.title,
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
                         Text(
-                          DateFormat.yMMMd()
-                              .format(transaction.date),
+                          DateFormat.yMMMd().format(transaction.date),
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

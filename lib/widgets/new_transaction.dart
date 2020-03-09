@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class NewTrasaction extends StatelessWidget {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+  final Function handelSelection;
+  NewTrasaction(this.handelSelection);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -11,6 +14,7 @@ class NewTrasaction extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
+
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
@@ -22,7 +26,10 @@ class NewTrasaction extends StatelessWidget {
             FlatButton(
               child: Text('Add Transaction'),
               textColor: Colors.purple,
-              onPressed: () => {},
+              onPressed: () => handelSelection(
+                titleController.text,
+                double.parse(amountController.text),
+              ),
             ),
           ],
         ),

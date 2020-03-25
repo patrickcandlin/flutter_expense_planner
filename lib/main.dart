@@ -25,21 +25,32 @@ class ExpenseAppHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense Tracker'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => {},
+          )
+        ],
       ),
       body: SingleChildScrollView(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                child: Card(
-                  child: Text('chart'),
-                  elevation: 5,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: Card(
+                child: Text('chart'),
+                elevation: 5,
               ),
-              UserTransactions(),
-            ],
-          ),
+            ),
+            UserTransactions(),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add), 
+        onPressed: () => {},
       ),
     );
   }

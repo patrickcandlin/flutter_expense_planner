@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
 
-class NewTrasaction extends StatelessWidget {
+class NewTrasaction extends StatefulWidget {
+  final Function addTransaction;
+  
+  NewTrasaction(this.addTransaction);
+
+  @override
+  _NewTrasactionState createState() => _NewTrasactionState();
+}
+
+class _NewTrasactionState extends State<NewTrasaction> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
-  final Function addTransaction;
-  NewTrasaction(this.addTransaction);
+
   void submitData() {
+    print('hello:');
     final enteredText = titleController.text;
     final enteredAmout = double.parse(amountController.text);
     if (enteredText.isEmpty || enteredAmout <= 0) {
       return;
     }
-    addTransaction(
+    
+    print('hello:1');
+    widget.addTransaction(
       enteredText,
       enteredAmout,
     );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -28,21 +40,19 @@ class NewTrasaction extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
+              onSubmitted: (_) => submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) => submitData,
+              onSubmitted: (_) => submitData(),
             ),
             FlatButton(
               child: Text('Add Transaction'),
               textColor: Colors.purple,
-              onPressed: () => addTransaction(
-                titleController.text,
-                double.parse(amountController.text),
+              onPressed: submitData,
               ),
-            ),
           ],
         ),
       ),

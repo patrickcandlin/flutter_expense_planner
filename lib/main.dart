@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import './widgets/user_transactions.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
+import './models/transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,30 +18,89 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class ExpenseAppHome extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+class ExpenseAppHome extends StatefulWidget {
+  @override
+  _ExpenseAppHomeState createState() => _ExpenseAppHomeState();
+}
+
+class _ExpenseAppHomeState extends State<ExpenseAppHome> {
+  final List<Transaction> _userTransactions = [
+    Transaction(
+      id: 't1',
+      title: 'fish',
+      amount: 200.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'apple',
+      amount: 2.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'apple',
+      amount: 2.00,
+      date: DateTime.now(),
+    ),
+  ];
+
+  void _addTransction(String newTxTitle, double newTxAmount) {
+    final newTx = Transaction(
+      title: newTxTitle,
+      amount: newTxAmount,
+      id: DateTime.now().toString(),
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+            onTap: (){},
+            child: NewTrasaction(_addTransction),
+            behavior: HitTestBehavior.opaque,
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense Tracker'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context),
+          )
+        ],
       ),
       body: SingleChildScrollView(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                child: Card(
-                  child: Text('chart'),
-                  elevation: 5,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: Card(
+                child: Text('chart'),
+                elevation: 5,
               ),
-              UserTransactions(),
-            ],
-          ),
+            ),
+            TransactionList(_userTransactions),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }

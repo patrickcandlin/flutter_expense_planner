@@ -55,6 +55,8 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
 
     setState(() {
       _userTransactions.add(newTx);
+      
+    print('hello: from inside add');
     });
   }
 

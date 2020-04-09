@@ -12,6 +12,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        accentColor: Colors.purpleAccent,
+        fontFamily: 'NotoSans',
+        appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                    headline6: TextStyle(
+                  fontFamily: "PublicSans",
+                ))),
       ),
       home: ExpenseAppHome(),
     );
@@ -55,8 +62,8 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
 
     setState(() {
       _userTransactions.add(newTx);
-      
-    print('hello: from inside add');
+
+      print('hello: from inside add');
     });
   }
 
@@ -65,7 +72,7 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
         context: ctx,
         builder: (_) {
           return GestureDetector(
-            onTap: (){},
+            onTap: () {},
             child: NewTrasaction(_addTransction),
             behavior: HitTestBehavior.opaque,
           );

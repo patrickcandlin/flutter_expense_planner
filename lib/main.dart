@@ -32,24 +32,24 @@ class ExpenseAppHome extends StatefulWidget {
 
 class _ExpenseAppHomeState extends State<ExpenseAppHome> {
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'fish',
-      amount: 200.00,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'apple',
-      amount: 2.00,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'apple',
-      amount: 2.00,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'fish',
+    //   amount: 200.00,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'apple',
+    //   amount: 2.00,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'apple',
+    //   amount: 2.00,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addTransction(String newTxTitle, double newTxAmount) {

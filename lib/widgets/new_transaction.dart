@@ -14,14 +14,12 @@ class _NewTrasactionState extends State<NewTrasaction> {
   final amountController = TextEditingController();
 
   void submitData() {
-    print('hello:');
     final enteredText = titleController.text;
     final enteredAmout = double.parse(amountController.text);
     if (enteredText.isEmpty || enteredAmout <= 0) {
       return;
     }
     
-    print('hello:1');
     widget.addTransaction(
       enteredText,
       enteredAmout,

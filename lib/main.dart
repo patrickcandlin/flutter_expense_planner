@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.purple,
-        accentColor: Colors.purpleAccent,
+        accentColor: Colors.amber,
+        errorColor: Colors.red,
         fontFamily: 'NotoSans',
         textTheme: ThemeData.light().textTheme.copyWith(
               headline6: TextStyle(
@@ -101,6 +102,11 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
         });
   }
 
+void _deleteTrasaction(String id){
+  setState(() {
+    _userTransactions.removeWhere((trx) => trx.id == id);
+  });
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +124,7 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTrasaction),
           ],
         ),
       ),

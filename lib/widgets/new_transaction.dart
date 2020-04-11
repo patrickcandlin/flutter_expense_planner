@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTrasaction extends StatefulWidget {
   final Function addTransaction;
@@ -10,12 +11,13 @@ class NewTrasaction extends StatefulWidget {
 }
 
 class _NewTrasactionState extends State<NewTrasaction> {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
+  DateTime _selectedDate;
 
   void _submitData() {
-    final enteredText = titleController.text;
-    final enteredAmout = double.parse(amountController.text);
+    final enteredText = _titleController.text;
+    final enteredAmout = double.parse(_amountController.text);
     if (enteredText.isEmpty || enteredAmout <= 0) {
       return;
     }
@@ -33,7 +35,14 @@ class _NewTrasactionState extends State<NewTrasaction> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
-    );
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -46,18 +55,24 @@ class _NewTrasactionState extends State<NewTrasaction> {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
-              controller: amountController,
+              controller: _amountController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               onSubmitted: (_) => _submitData(),
             ),
             Row(
               children: <Widget>[
-                Text('No Date Chosen!'),
+                Expanded(
+                                  child: Text(
+                    _selectedDate == null
+                        ? 'Today'
+                        : 'Transaction Date: ${DateFormat.yMd().format(_selectedDate)}',
+                  ),
+                ),
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
                   child: Text(

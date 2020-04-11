@@ -15,11 +15,24 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         accentColor: Colors.purpleAccent,
         fontFamily: 'NotoSans',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontFamily: 'PublicSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+              button: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
         appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                    headline6: TextStyle(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
                   fontFamily: "PublicSans",
-                ))),
+                ),
+              ),
+        ),
       ),
       home: ExpenseAppHome(),
     );

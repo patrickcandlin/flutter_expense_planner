@@ -16,15 +16,19 @@ class _NewTrasactionState extends State<NewTrasaction> {
   DateTime _selectedDate;
 
   void _submitData() {
+    if (_amountController.text.isEmpty) {
+      return;
+    }
     final enteredText = _titleController.text;
     final enteredAmout = double.parse(_amountController.text);
-    if (enteredText.isEmpty || enteredAmout <= 0) {
+    if (enteredText.isEmpty || enteredAmout <= 0 || _selectedDate == null) {
       return;
     }
 
     widget.addTransaction(
       enteredText,
       enteredAmout,
+      _selectedDate,
     );
     Navigator.of(context).pop();
   }
@@ -67,7 +71,7 @@ class _NewTrasactionState extends State<NewTrasaction> {
             Row(
               children: <Widget>[
                 Expanded(
-                                  child: Text(
+                  child: Text(
                     _selectedDate == null
                         ? 'Today'
                         : 'Transaction Date: ${DateFormat.yMd().format(_selectedDate)}',

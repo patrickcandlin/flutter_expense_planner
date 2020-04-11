@@ -76,12 +76,12 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
     }).toList();
   }
 
-  void _addTransction(String newTxTitle, double newTxAmount) {
+  void _addTransction(String newTxTitle, double newTxAmount, DateTime selectedDate) {
     final newTx = Transaction(
       title: newTxTitle,
       amount: newTxAmount,
       id: DateTime.now().toString(),
-      date: DateTime.now(),
+      date: selectedDate,
     );
 
     setState(() {

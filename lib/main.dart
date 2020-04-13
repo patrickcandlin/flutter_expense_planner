@@ -13,13 +13,27 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.purple,
-        accentColor: Colors.purpleAccent,
+        accentColor: Colors.amber,
+        errorColor: Colors.red,
         fontFamily: 'NotoSans',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontFamily: 'PublicSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+              button: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
         appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                    headline6: TextStyle(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
                   fontFamily: "PublicSans",
-                ))),
+                ),
+              ),
+        ),
       ),
       home: ExpenseAppHome(),
     );
@@ -63,12 +77,12 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
     }).toList();
   }
 
-  void _addTransction(String newTxTitle, double newTxAmount) {
+  void _addTransction(String newTxTitle, double newTxAmount, DateTime selectedDate) {
     final newTx = Transaction(
       title: newTxTitle,
       amount: newTxAmount,
       id: DateTime.now().toString(),
-      date: DateTime.now(),
+      date: selectedDate,
     );
 
     setState(() {
@@ -88,6 +102,11 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
         });
   }
 
+void _deleteTrasaction(String id){
+  setState(() {
+    _userTransactions.removeWhere((trx) => trx.id == id);
+  });
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +124,7 @@ class _ExpenseAppHomeState extends State<ExpenseAppHome> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTrasaction),
           ],
         ),
       ),
